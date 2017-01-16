@@ -6,11 +6,18 @@
 # 1. How much money did we make this week?
 # 2. How much of a bonus did each employee get?
 # (bonuses are paid to employees who pilot the Planet Express)
+# bonuses = 5% of total money for each delivered shipment
 
 # 3. How many trips did each employee pilot?
 
 # 4. How much money did we make broken down by planet?
 # ie.. how much did we make shipping to Earth? Mars? Saturn? etc.
+
+
+# Fry - pilots to Earth (because he isn't allowed into space)
+# Amy - pilots to Mars (so she can visit her family)
+# Bender - pilots to Uranus (teeheee...)
+# Leela - pilots everywhere else because she is the only responsible one
 
 require 'json'
 require 'csv'
@@ -19,16 +26,100 @@ require 'csv'
 moneys = []
 revenue = 0
 
+frys_money = 0
+amys_money = 0
+benders_money = 0
+leelas_money = 0
+frys_trips = 0
+amys_trips = 0
+benders_trips = 0
+leelas_trips = 0
+earths_money = 0
+mars_money = 0
+uranus_money = 0
+moon_money = 0
+jupiter_money = 0
+pluto_money = 0
+saturn_money = 0
+mercury_money = 0
+
 CSV.foreach('orders.csv', headers: true) do |order|
   puts order  # puts all of the parsed lines here...
   moneys.push(order['Money'].to_i)
+  money_for_entire_shipment = (order['Money'].to_i * order['Crates'].to_i)
 
-  moneys_for_order = (order['Money'].to_i * order['Crates'].to_i)
-  revenue += moneys_for_order
+def get_money_per_planet(planet_name)
+
+end
+def get_pilots_bonus
+
+end
+  revenue += money_for_entire_shipment
+
+
+  if order['Destination'] == 'Earth'
+    frys_money += money_for_entire_shipment.to_f * 0.05
+    frys_trips += 1
+    earths_money += money_for_entire_shipment
+
+  elsif order['Destination'] == 'Mars'
+    amys_money += money_for_entire_shipment.to_f * 0.05
+    amys_trips += 1
+    mars_money += money_for_entire_shipment
+
+  elsif order['Destination'] == 'Uranus'
+    benders_money += money_for_entire_shipment.to_f * 0.05
+    benders_trips += 1
+    uranus_money += money_for_entire_shipment
+  elsif order['Destination'] == 'Jupiter'
+    jupiter_money += money_for_entire_shipment
+    leelas_money += money_for_entire_shipment.to_f * 0.05
+    leelas_trips += 1
+  elsif order['Destination'] == 'Moon'
+    moon_money += money_for_entire_shipment
+    leelas_money += money_for_entire_shipment.to_f * 0.05
+    leelas_trips += 1
+
+  elsif order['Destination'] == 'Pluto'
+    pluto_money += money_for_entire_shipment
+    leelas_money += money_for_entire_shipment.to_f * 0.05
+    leelas_trips += 1
+  elsif order['Destination'] == 'Mercury'
+    mercury_money += money_for_entire_shipment
+    leelas_money += money_for_entire_shipment.to_f * 0.05
+    leelas_trips += 1
+
+  elsif order['Destination'] == 'Saturn'
+    saturn_money += money_for_entire_shipment
+    leelas_money += money_for_entire_shipment.to_f * 0.05
+    leelas_trips += 1
+
+  end
+
 end
 
+puts "total Money made this week: #{revenue}"
+
+puts "Fry will get the bonus of: #{frys_money}"
+puts "Frys total trips this week: #{frys_trips}"
+
+puts "Amy will get the bonus of: #{amys_money}"
+puts "Amys total trips this week: #{amys_trips}"
+
+puts "Bender will get the bonus of: #{benders_money}"
+puts "Benders total trips this week: #{benders_trips}"
+
+puts "Leela will get the bonus of: #{leelas_money}"
+puts "Leelas total trips this week: #{leelas_trips}"
+
+puts "Earned #{earths_money} by shipments from Earth"
+puts "Earned #{mars_money} by shipments from Mars"
+puts "Earned #{uranus_money} by shipments from Uranus"
+puts "Earned #{moon_money} by shipments from the Moon"
+puts "Earned #{jupiter_money} by shipments from Jupiter"
+puts "Earned #{saturn_money} by shipments from Saturn"
+puts "Earned #{pluto_money} by shipments from Pluto"
+puts "Earned #{mercury_money} by shipments from Mercury"
 
 
 
-
-puts "total moneys made this week is  #{revenue}"
