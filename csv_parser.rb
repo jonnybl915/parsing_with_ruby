@@ -21,7 +21,7 @@
 
 require 'json'
 require 'csv'
-
+require 'erb'
 
 moneys = []
 revenue = 0
@@ -48,12 +48,12 @@ CSV.foreach('orders.csv', headers: true) do |order|
   moneys.push(order['Money'].to_i)
   money_for_entire_shipment = (order['Money'].to_i * order['Crates'].to_i)
 
-def get_money_per_planet(planet_name)
+def get_money_per_planet(csv_line, planet_name)
+  if csv_line['Destination'] == planet_name
 
+  end
 end
-def get_pilots_bonus
 
-end
   revenue += money_for_entire_shipment
 
 
@@ -97,6 +97,34 @@ end
   end
 
 end
+
+CSV.open '/Users/jblack/RubymineProjects/CSV_Parsing/output.csv', 'w' do |csv|
+
+  csv <<  ["info string", "variable"]
+  csv <<  ["total Money made this week: ", revenue]
+
+  csv <<  ["Fry will get the bonus of: ", frys_money]
+  csv <<  ["Frys total trips this week: ", frys_trips]
+
+  csv <<  ["Amy will get the bonus of: ", amys_money]
+  csv <<  ["Amys total trips this week: ", amys_trips]
+
+  csv <<  ["Bender will get the bonus of: ", benders_money]
+  csv <<  ["Benders total trips this week: ", benders_trips]
+
+  csv <<  ["Leela will get the bonus of: ",leelas_money]
+  csv <<  ["Leelas total trips this week: ", leelas_trips]
+
+  csv <<  ["by shipments from Earth we Earned ", earths_money]
+  csv <<  ["by shipments from Mars we Earned ", mars_money]
+  csv <<  ["by shipments from Uranus we Earned ", uranus_money]
+  csv <<  ["by shipments from the Moon we Earned ", moon_money]
+  csv <<  ["by shipments from Jupiter Earned ", jupiter_money]
+  csv <<  ["by shipments from Saturn Earned ", saturn_money]
+  csv <<  ["by shipments from Pluto Earned ", pluto_money]
+  csv <<  ["by shipments from Mercury Earned ", mercury_money]
+  end
+
 
 puts "total Money made this week: #{revenue}"
 
