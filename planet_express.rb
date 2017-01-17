@@ -15,12 +15,16 @@ end
 counts = {}
 
 numbers.each do |x|
-  old_count_for_x = counts[x]
-  if old_count_for_x == nil
-    old_count_for_x = 0
-  end
-  
-  new_count_for_x = old_count_for_x + 1
-  counts[x] = new_count_for_x
+
+  # if counts[x] == nil
+  #  counts[x] = 0
+  # end
+  # ^ same as below
+  counts[x] = counts[x] || 0
+
+  # counts[x] ||= 0 Same as above^
+  # ^ guard clause
+
+  counts[x] += 1
 end
 puts counts
