@@ -98,7 +98,7 @@ end
 
 end
 
-CSV.open '/Users/jblack/RubymineProjects/CSV_Parsing/output.csv', 'w' do |csv|
+CSV.open '/Users/jblack/RubyMineProjects/hello_parsing_ruby/output.csv', 'w' do |csv|
 
   csv <<  ["info string", "variable"]
   csv <<  ["total Money made this week: ", revenue]
